@@ -6,7 +6,7 @@ const Settings = () => import('components/Settings/index')
 const Article = () => import('components/Article/index')
 const Apps = () => import('components/Apps/index')
 const NotFound = () => import('components/NotFound')
-import {isLogin} from './utils/authService'
+import { isLogin } from './utils/authService'
 
 Vue.use(Router)
 
@@ -23,15 +23,15 @@ const router = new Router({
       path: '/login',
       name: 'login',
       component: Login,
-      meta:{
+      meta: {
         requiresNotAuth: true
-      }      
+      }
     },
     {
       path: '/settings',
       name: 'settings',
       component: Settings,
-      meta:{
+      meta: {
         requiresAuth: true
       }
     },
@@ -41,7 +41,7 @@ const router = new Router({
       component: Article,
       meta: {
         goTop: true
-      }      
+      }
     },
     {
       path: '/apps',
@@ -57,17 +57,17 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.goTop)) {
-    window.scroll(0, 0) 
+    window.scroll(0, 0)
   }
 
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!isLogin()) {
-      return next({path: '/login'})
+      return next({ path: '/login' })
     }
   }
   if (to.matched.some(record => record.meta.requiresNotAuth)) {
     if (isLogin()) {
-      return next({path: '/'})
+      return next({ path: '/' })
     }
   }
   next()
